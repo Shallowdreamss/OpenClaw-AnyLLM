@@ -594,11 +594,10 @@ The following providers claim OpenAI-compatible API support and **should theoret
 
 | Provider | Example Models | OpenAI Compatible Claim | Notes |
 |----------|---------------|------------------------|-------|
-| Alibaba | Qwen-Turbo/Plus/Max | ✅ Official docs | Need to verify actual compatibility |
-| Zhipu | GLM-4/GLM-4V | ✅ Official docs | API format may differ |
-| DeepSeek | DeepSeek-Chat/Coder | ✅ Official docs | Strong coding capabilities |
-| Moonshot | Kimi | ✅ Official docs | Long context |
-| MiniMax | abab-6.5 | ⚠️ Needs confirmation | Multimodal support |
+| Alibaba | Qwen3-Max | ✅ Official docs | Need to verify actual compatibility |
+| Zhipu | GLM-5 | ✅ Official docs | API format may differ |
+| DeepSeek | DeepSeek-V3.2 | ✅ Official docs | Strong coding capabilities |
+| Moonshot | Kimi-k2.5 | ✅ Official docs | Long context |
 
 #### Self-Hosted Solutions
 

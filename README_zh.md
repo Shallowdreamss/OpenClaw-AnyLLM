@@ -592,11 +592,10 @@ openclaw config get agents.defaults.model.primary
 
 | 提供商 | 模型示例 | OpenAI 兼容声明 | 备注 |
 |--------|---------|----------------|------|
-| 阿里 | Qwen-Turbo/Plus/Max | ✅ 官方文档说明 | 需验证实际兼容性 |
-| 智谱 | GLM-4/GLM-4V | ✅ 官方文档说明 | API 格式可能有差异 |
-| DeepSeek | DeepSeek-Chat/Coder | ✅ 官方文档说明 | 编程能力强 |
-| 月之暗面 | Moonshot (Kimi) | ✅ 官方文档说明 | 长上下文 |
-| MiniMax | abab-6.5 | ⚠️ 待确认 | 多模态支持 |
+| 阿里 | Qwen3-Max | ✅ 官方文档说明 | 需验证实际兼容性 |
+| 智谱 | GLM-5 | ✅ 官方文档说明 | API 格式可能有差异 |
+| DeepSeek | DeepSeek-V3.2 | ✅ 官方文档说明 | 编程能力强 |
+| 月之暗面 | Kimi-k2.5 | ✅ 官方文档说明 | 长上下文 |
 
 #### 自托管方案
 
