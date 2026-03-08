@@ -1,4 +1,4 @@
-# OpenClaw-AnyLLM
+# uOpenClaw-AnyLLM
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform: No Root Required](https://img.shields.io/badge/Platform-No%20Root%20Required-green)](https://github.com/Shallowdreamss/openclaw-anyllm)
@@ -164,7 +164,7 @@ openclaw config set gateway.trustedProxies '["127.0.0.1"]'
 
 This is the **core technique** — making OpenClaw work with unsupported models.
 
-#### 🔵 Example 1: Baidu ERNIE 5.0
+#### ✅ Verified Example: Baidu ERNIE 5.0
 
 ```bash
 openclaw config set models.providers.ernie-profile '{
@@ -185,11 +185,19 @@ openclaw config set agents.defaults.model.primary "ernie-profile/ernie-5.0-think
 
 **Get API Key**: Visit [Baidu AI Studio](https://aistudio.baidu.com) to register and get free credits
 
+**✅ This configuration has been fully tested in AI Studio environment**
+
 ---
 
-#### 🟢 Example 2: Alibaba Qwen
+#### 🧪 Other Models (Theoretically Compatible - Unverified)
+
+The following configurations are **based on providers' claimed OpenAI compatibility** but have **not been actually tested**. If you try them successfully, please submit a PR or Issue to share your findings!
+
+<details>
+<summary>📋 Alibaba Qwen (Click to expand)</summary>
 
 ```bash
+# ⚠️ Unverified - Theoretical configuration
 openclaw config set models.providers.qwen-profile '{
   "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
   "apiKey": "YOUR_QWEN_API_KEY",
@@ -198,10 +206,6 @@ openclaw config set models.providers.qwen-profile '{
     {
       "id": "qwen-turbo",
       "name": "Qwen Turbo"
-    },
-    {
-      "id": "qwen-plus",
-      "name": "Qwen Plus"
     }
   ]
 }'
@@ -209,13 +213,15 @@ openclaw config set models.providers.qwen-profile '{
 openclaw config set agents.defaults.model.primary "qwen-profile/qwen-turbo"
 ```
 
-**Get API Key**: Visit [Alibaba Cloud DashScope](https://dashscope.aliyun.com/)
+**Get API Key**: [Alibaba Cloud DashScope](https://dashscope.aliyun.com/)  
+**Note**: May need to adjust `baseUrl` and `model id` based on actual API docs
+</details>
 
----
-
-#### 🟣 Example 3: Zhipu GLM-4
+<details>
+<summary>📋 Zhipu GLM-4 (Click to expand)</summary>
 
 ```bash
+# ⚠️ Unverified - Theoretical configuration
 openclaw config set models.providers.glm-profile '{
   "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
   "apiKey": "YOUR_GLM_API_KEY",
@@ -231,15 +237,17 @@ openclaw config set models.providers.glm-profile '{
 openclaw config set agents.defaults.model.primary "glm-profile/glm-4"
 ```
 
-**Get API Key**: Visit [Zhipu AI Open Platform](https://open.bigmodel.cn/)
+**Get API Key**: [Zhipu AI Open Platform](https://open.bigmodel.cn/)  
+**Note**: GLM API format may have subtle differences from OpenAI
+</details>
 
----
-
-#### 🟠 Example 4: DeepSeek
+<details>
+<summary>📋 DeepSeek (Click to expand)</summary>
 
 ```bash
+# ⚠️ Unverified - Theoretical configuration
 openclaw config set models.providers.deepseek-profile '{
-  "baseUrl": "https://api.deepseek.com",
+  "baseUrl": "https://api.deepseek.com/v1",
   "apiKey": "YOUR_DEEPSEEK_API_KEY",
   "api": "openai-completions",
   "models": [
@@ -253,13 +261,14 @@ openclaw config set models.providers.deepseek-profile '{
 openclaw config set agents.defaults.model.primary "deepseek-profile/deepseek-chat"
 ```
 
-**Get API Key**: Visit [DeepSeek Platform](https://platform.deepseek.com/)
+**Get API Key**: [DeepSeek Platform](https://platform.deepseek.com/)
+</details>
 
----
-
-#### 🔴 Example 5: Local Ollama
+<details>
+<summary>📋 Local Ollama (Click to expand)</summary>
 
 ```bash
+# ⚠️ Unverified - Theoretical configuration
 # Make sure Ollama is running (locally or remotely)
 # Install Ollama: https://ollama.com/download
 
@@ -271,16 +280,26 @@ openclaw config set models.providers.ollama-profile '{
     {
       "id": "llama3.2",
       "name": "LLaMA 3.2"
-    },
-    {
-      "id": "qwen2.5",
-      "name": "Qwen 2.5"
     }
   ]
 }'
 
 openclaw config set agents.defaults.model.primary "ollama-profile/llama3.2"
 ```
+
+**Note**: Ollama's OpenAI-compatible mode needs version confirmation
+</details>
+
+---
+
+#### 💬 Help Us Verify!
+
+If you successfully configure any of the above models, or have other working LLM examples, please:
+- 📝 Submit an Issue sharing your configuration
+- 🎉 Create a Pull Request to update docs
+- ⭐ Note which parameters needed adjustment
+
+We'll mark verified configurations as ✅ and add them to the main docs!
 
 ---
 
@@ -561,34 +580,63 @@ openclaw config get agents.defaults.model.primary
 
 ## 🧪 Supported LLM Providers
 
-### Tested Commercial Models
+### ✅ Verified Models
 
-| Provider | Example Models | OpenAI Compatible | Notes |
-|----------|---------------|-------------------|-------|
-| Baidu | ERNIE 3.5/4.0/5.0 | ✅ | Generous free tier |
-| Alibaba | Qwen-Turbo/Plus/Max | ✅ | Great value |
-| Zhipu | GLM-4/GLM-4V | ✅ | Vision support |
-| DeepSeek | DeepSeek-Chat/Coder | ✅ | Strong coding |
-| Moonshot | Kimi | ✅ | Long context |
-| MiniMax | abab-6.5 | ✅ | Multimodal |
+| Provider | Model | Status | Test Environment |
+|----------|-------|--------|-----------------|
+| Baidu | ERNIE 5.0 Thinking Preview | ✅ Fully Verified | AI Studio |
 
-### Self-Hosted Solutions
+### 🔬 Theoretically Compatible (Awaiting Community Verification)
 
-| Tool | Description | Difficulty |
-|------|-------------|------------|
-| Ollama | Easiest local deployment | ⭐ Easy |
-| vLLM | High-performance inference | ⭐⭐ Medium |
-| LocalAI | Multiple model formats | ⭐⭐ Medium |
-| LM Studio | GUI tool for non-technical | ⭐ Easy |
-| text-generation-webui | Feature-rich Web UI | ⭐⭐⭐ Complex |
+The following providers claim OpenAI-compatible API support and **should theoretically work**, but we haven't actually tested them yet.
 
-### OpenAI-Compatible Cloud Services
+#### Chinese Commercial Models
 
-- Together.ai
-- Groq
-- Fireworks AI
-- Replicate
-- Perplexity
+| Provider | Example Models | OpenAI Compatible Claim | Notes |
+|----------|---------------|------------------------|-------|
+| Alibaba | Qwen-Turbo/Plus/Max | ✅ Official docs | Need to verify actual compatibility |
+| Zhipu | GLM-4/GLM-4V | ✅ Official docs | API format may differ |
+| DeepSeek | DeepSeek-Chat/Coder | ✅ Official docs | Strong coding capabilities |
+| Moonshot | Kimi | ✅ Official docs | Long context |
+| MiniMax | abab-6.5 | ⚠️ Needs confirmation | Multimodal support |
+
+#### Self-Hosted Solutions
+
+| Tool | OpenAI Compatible | Difficulty | Notes |
+|------|------------------|-----------|-------|
+| Ollama | ✅ Official support | ⭐ Easy | Need version confirmation |
+| vLLM | ✅ Official support | ⭐⭐ Medium | High-performance inference |
+| LocalAI | ✅ Native design | ⭐⭐ Medium | Multiple formats |
+| LM Studio | ✅ Built-in | ⭐ Easy | GUI tool |
+| text-generation-webui | ⚠️ Needs plugin | ⭐⭐⭐ Complex | Feature-rich |
+
+#### International Cloud Services
+
+Known services with OpenAI-compatible APIs:
+- Together.ai (✅ Official docs confirmed)
+- Groq (✅ Official docs confirmed)
+- Fireworks AI (✅ Official docs confirmed)
+- Replicate (⚠️ Needs confirmation)
+- Perplexity (⚠️ Needs confirmation)
+
+### 🤝 Help Us Verify
+
+**We need community help!** If you successfully configure any of the above models:
+
+1. **Submit Verification Report** - Share in Issues:
+   - Model and provider used
+   - Complete configuration commands
+   - Whether parameters needed adjustment
+   - Problems encountered and solutions
+
+2. **Contribute Example Configs** - Create a PR:
+   - Add to "Verified" list
+   - Document special configuration notes
+   - Provide test screenshots
+
+3. **Report Incompatibility** - If a model doesn't work:
+   - Describe specific errors
+   - Help us update documentation
 
 ---
 

@@ -164,7 +164,7 @@ openclaw config set gateway.trustedProxies '["127.0.0.1"]'
 
 这是**核心技术** — 让 OpenClaw 支持原生不支持的模型。
 
-#### 🔵 示例 1: 百度文心一言 ERNIE 5.0
+#### ✅ 已验证示例: 百度文心一言 ERNIE 5.0
 
 ```bash
 openclaw config set models.providers.ernie-profile '{
@@ -185,11 +185,19 @@ openclaw config set agents.defaults.model.primary "ernie-profile/ernie-5.0-think
 
 **获取 API Key**: 访问 [百度 AI Studio](https://aistudio.baidu.com) 注册并获取免费额度
 
+**✅ 此配置已在 AI Studio 环境中完全测试通过**
+
 ---
 
-#### 🟢 示例 2: 阿里通义千问 Qwen
+#### 🧪 理论上可用的其他模型(未验证)
+
+以下配置**基于各提供商声称的 OpenAI 兼容性推测**,但**尚未实际测试**。如果你尝试后成功,欢迎提交 PR 或 Issue 反馈!
+
+<details>
+<summary>📋 阿里通义千问 Qwen (点击展开)</summary>
 
 ```bash
+# ⚠️ 未验证 - 理论配置
 openclaw config set models.providers.qwen-profile '{
   "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
   "apiKey": "你的_QWEN_API_KEY",
@@ -198,10 +206,6 @@ openclaw config set models.providers.qwen-profile '{
     {
       "id": "qwen-turbo",
       "name": "Qwen Turbo"
-    },
-    {
-      "id": "qwen-plus",
-      "name": "Qwen Plus"
     }
   ]
 }'
@@ -209,13 +213,15 @@ openclaw config set models.providers.qwen-profile '{
 openclaw config set agents.defaults.model.primary "qwen-profile/qwen-turbo"
 ```
 
-**获取 API Key**: 访问 [阿里云百炼](https://dashscope.aliyun.com/)
+**获取 API Key**: [阿里云百炼](https://dashscope.aliyun.com/)  
+**注意**: 可能需要根据实际 API 文档调整 `baseUrl` 和 `model id`
+</details>
 
----
-
-#### 🟣 示例 3: 智谱 GLM-4
+<details>
+<summary>📋 智谱 GLM-4 (点击展开)</summary>
 
 ```bash
+# ⚠️ 未验证 - 理论配置
 openclaw config set models.providers.glm-profile '{
   "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
   "apiKey": "你的_GLM_API_KEY",
@@ -231,15 +237,17 @@ openclaw config set models.providers.glm-profile '{
 openclaw config set agents.defaults.model.primary "glm-profile/glm-4"
 ```
 
-**获取 API Key**: 访问 [智谱AI开放平台](https://open.bigmodel.cn/)
+**获取 API Key**: [智谱AI开放平台](https://open.bigmodel.cn/)  
+**注意**: GLM API 格式可能与 OpenAI 有细微差异
+</details>
 
----
-
-#### 🟠 示例 4: DeepSeek
+<details>
+<summary>📋 DeepSeek (点击展开)</summary>
 
 ```bash
+# ⚠️ 未验证 - 理论配置
 openclaw config set models.providers.deepseek-profile '{
-  "baseUrl": "https://api.deepseek.com",
+  "baseUrl": "https://api.deepseek.com/v1",
   "apiKey": "你的_DEEPSEEK_API_KEY",
   "api": "openai-completions",
   "models": [
@@ -253,13 +261,14 @@ openclaw config set models.providers.deepseek-profile '{
 openclaw config set agents.defaults.model.primary "deepseek-profile/deepseek-chat"
 ```
 
-**获取 API Key**: 访问 [DeepSeek 平台](https://platform.deepseek.com/)
+**获取 API Key**: [DeepSeek 平台](https://platform.deepseek.com/)
+</details>
 
----
-
-#### 🔴 示例 5: 本地 Ollama
+<details>
+<summary>📋 本地 Ollama (点击展开)</summary>
 
 ```bash
+# ⚠️ 未验证 - 理论配置
 # 确保 Ollama 服务正在运行(本地或远程)
 # 安装 Ollama: https://ollama.com/download
 
@@ -271,16 +280,26 @@ openclaw config set models.providers.ollama-profile '{
     {
       "id": "llama3.2",
       "name": "LLaMA 3.2"
-    },
-    {
-      "id": "qwen2.5",
-      "name": "Qwen 2.5"
     }
   ]
 }'
 
 openclaw config set agents.defaults.model.primary "ollama-profile/llama3.2"
 ```
+
+**注意**: Ollama 的 OpenAI 兼容模式需要确认版本支持
+</details>
+
+---
+
+#### 💬 帮助我们验证!
+
+如果你成功配置了上述任何模型,或者有其他 LLM 的成功案例,请:
+- 📝 提交 Issue 分享你的配置
+- 🎉 发起 Pull Request 更新文档
+- ⭐ 标注哪些参数需要调整
+
+我们会将验证通过的配置标记为 ✅ 并添加到主文档中!
 
 ---
 
@@ -559,34 +578,63 @@ openclaw config get agents.defaults.model.primary
 
 ## 🧪 支持的 LLM 提供商
 
-### 已测试的商业模型
+### ✅ 已验证的模型
 
-| 提供商 | 模型示例 | OpenAI 兼容 | 备注 |
-|--------|---------|------------|------|
-| 百度 | ERNIE 3.5/4.0/5.0 | ✅ | 免费额度充足 |
-| 阿里 | Qwen-Turbo/Plus/Max | ✅ | 性价比高 |
-| 智谱 | GLM-4/GLM-4V | ✅ | 支持视觉理解 |
-| DeepSeek | DeepSeek-Chat/Coder | ✅ | 编程能力强 |
-| 月之暗面 | Moonshot (Kimi) | ✅ | 长上下文 |
-| MiniMax | abab-6.5 | ✅ | 多模态支持 |
+| 提供商 | 模型 | 状态 | 测试环境 |
+|--------|------|------|---------|
+| 百度 | ERNIE 5.0 Thinking Preview | ✅ 完全验证 | AI Studio |
 
-### 自托管方案
+### 🔬 理论上兼容(待社区验证)
 
-| 工具 | 说明 | 难度 |
-|------|------|------|
-| Ollama | 最简单的本地部署方案 | ⭐ 简单 |
-| vLLM | 高性能推理引擎 | ⭐⭐ 中等 |
-| LocalAI | 支持多种模型格式 | ⭐⭐ 中等 |
-| LM Studio | GUI 工具,适合非技术用户 | ⭐ 简单 |
-| text-generation-webui | 功能丰富的 Web UI | ⭐⭐⭐ 复杂 |
+以下提供商声称支持 OpenAI 兼容 API,**理论上应该可用**,但我们尚未实际测试。
 
-### OpenAI 兼容云服务
+#### 中文商业模型
 
-- Together.ai
-- Groq
-- Fireworks AI
-- Replicate
-- Perplexity
+| 提供商 | 模型示例 | OpenAI 兼容声明 | 备注 |
+|--------|---------|----------------|------|
+| 阿里 | Qwen-Turbo/Plus/Max | ✅ 官方文档说明 | 需验证实际兼容性 |
+| 智谱 | GLM-4/GLM-4V | ✅ 官方文档说明 | API 格式可能有差异 |
+| DeepSeek | DeepSeek-Chat/Coder | ✅ 官方文档说明 | 编程能力强 |
+| 月之暗面 | Moonshot (Kimi) | ✅ 官方文档说明 | 长上下文 |
+| MiniMax | abab-6.5 | ⚠️ 待确认 | 多模态支持 |
+
+#### 自托管方案
+
+| 工具 | OpenAI 兼容 | 难度 | 备注 |
+|------|------------|------|------|
+| Ollama | ✅ 官方支持 | ⭐ 简单 | 需确认版本 |
+| vLLM | ✅ 官方支持 | ⭐⭐ 中等 | 高性能推理 |
+| LocalAI | ✅ 原生设计 | ⭐⭐ 中等 | 支持多格式 |
+| LM Studio | ✅ 内置功能 | ⭐ 简单 | GUI 工具 |
+| text-generation-webui | ⚠️ 需插件 | ⭐⭐⭐ 复杂 | 功能丰富 |
+
+#### 国际云服务
+
+已知支持 OpenAI 兼容 API 的服务:
+- Together.ai (✅ 官方文档确认)
+- Groq (✅ 官方文档确认)
+- Fireworks AI (✅ 官方文档确认)
+- Replicate (⚠️ 需确认)
+- Perplexity (⚠️ 需确认)
+
+### 🤝 帮助我们验证
+
+**我们需要社区的帮助!** 如果你成功配置了任何上述模型:
+
+1. **提交验证报告** - 在 Issues 中分享:
+   - 使用的模型和提供商
+   - 完整的配置命令
+   - 是否需要调整参数
+   - 遇到的问题和解决方案
+
+2. **贡献示例配置** - 发起 PR:
+   - 添加到"已验证"列表
+   - 补充特殊配置说明
+   - 提供测试截图
+
+3. **报告不兼容** - 如果某个模型无法工作:
+   - 说明具体错误
+   - 帮助我们更新文档
 
 ---
 
